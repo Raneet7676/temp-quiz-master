@@ -1,0 +1,23 @@
+body{
+    background-color: rgb(244, 143, 248);
+}
+
+#cards-for-box{
+    display: flex;
+    justify-content:space-evenly ;
+    align-content: space-around;
+    flex-wrap: wrap;
+
+    height: 980px;
+    width: auto;
+    border: black ridge 5px;
+}
+
+.box-contain{
+    border: black solid 2px;
+    height: 400px;
+    width: 400px;
+    border-radius: 5%;
+    margin: 4px;
+    text-align: center;
+}

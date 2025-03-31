@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .results-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-top: 30px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .score-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .score {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2196F3;
+            margin: 10px 0;
+        }
+        .score-text {
+            font-size: 18px;
+            color: #555;
+        }
+        .performance {
+            text-align: center;
+            font-size: 20px;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .excellent {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        .good {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+        .average {
+            background-color: #fff8e1;
+            color: #ff8f00;
+        }
+        .poor {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        .buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-secondary {
+            background-color: #2196F3;
+        }
+    </style>
+</head>
+<body>
+    <div class="results-container">
+        <h1>Quiz Results</h1>
+        
+        <div class="score-container">
+            <div class="score-text">Your score:</div>
+            <div class="score" id="score-display">0/10</div>
+            <div class="score-text" id="percentage-display">0%</div>
+        </div>
+        
+        <div class="performance" id="performance-message"></div>
+        
+        <div class="buttons">
+            <a href="index.html" class="btn">Try Again</a>
+            <a href="#" class="btn btn-secondary" onclick="showAnswers()">Show Answers</a>
+        </div>
+    </div>
+    
+    <div id="answers-container" class="results-container" style="display: none; margin-top: 20px;">
+        <h2 style="text-align: center;">Answer Review</h2>
+        <div id="answers-list"></div>
+    </div>
+    
+    <script>
+        // Retrieve and display the score
+        window.onload = function() {
+            const score = parseInt(localStorage.getItem('quizScore') || 0);
+            const total = parseInt(localStorage.getItem('totalQuestions') || 10);
+            const percentage = Math.round((score / total) * 100);
+            
+            document.getElementById('score-display').textContent = `${score}/${total}`;
+            document.getElementById('percentage-display').textContent = `${percentage}%`;
+            
+            // Display performance message
+            const performanceMsg = document.getElementById('performance-message');
+            if (percentage >= 90) {
+                performanceMsg.textContent = "Excellent! You're a knowledge master!";
+                performanceMsg.className = "performance excellent";
+            } else if (percentage >= 70) {
+                performanceMsg.textContent = "Good job! You have solid knowledge!";
+                performanceMsg.className = "performance good";
+            } else if (percentage >= 50) {
+                performanceMsg.textContent = "Not bad, but there's room for improvement.";
+                performanceMsg.className = "performance average";
+            } else {
+                performanceMsg.textContent = "Keep learning and try again!";
+                performanceMsg.className = "performance poor";
+            }
+        }
+        
+        // Function to show answers
+        function showAnswers() {
+            const answersContainer = document.getElementById('answers-container');
+            const answersList = document.getElementById('answers-list');
+            
+            // Show the container
+            answersContainer.style.display = 'block';
+            
+            // Get stored answers
+            const userAnswers = JSON.parse(localStorage.getItem('userAnswers') || '{}');
+            const correctAnswers = JSON.parse(localStorage.getItem('correctAnswers') || '{}');
+            
+            // Clear previous content
+            answersList.innerHTML = '';
+            
+            // Questions map to display friendly names for values
+            const questionLabels = {
+                q1: {
+                    question: "What is the capital of France?",
+                    options: {
+                        london: "London",
+                        paris: "Paris",
+                        rome: "Rome",
+                        berlin: "Berlin"
+                    }
+                },
+                q2: {
+                    question: "Which planet is known as the Red Planet?",
+                    options: {
+                        venus: "Venus",
+                        jupiter: "Jupiter",
+                        mars: "Mars",
+                        saturn: "Saturn"
+                    }
+                },
+                q3: {
+                    question: "Which element has the chemical symbol 'O'?",
+                    options: {
+                        osmium: "Osmium",
+                        oxygen: "Oxygen",
+                        gold: "Gold",
+                        oganesson: "Oganesson"
+                    }
+                },
+                q4: {
+                    question: "Which country is home to the Great Barrier Reef?",
+                    options: {
+                        mexico: "Mexico",
+                        australia: "Australia",
+                        thailand: "Thailand",
+                        brazil: "Brazil"
+                    }
+                },
+                q5: {
+                    question: "Who wrote \"Romeo and Juliet\"?",
+                    options: {
+                        charles_dickens: "Charles Dickens",
+                        jane_austen: "Jane Austen",
+                        william_shakespeare: "William Shakespeare",
+                        mark_twain: "Mark Twain"
+                    }
+                },
+                q6: {
+                    question: "What is the largest mammal on Earth?",
+                    options: {
+                        elephant: "Elephant",
+                        blue_whale: "Blue Whale",
+                        giraffe: "Giraffe",
+                        polar_bear: "Polar Bear"
+                    }
+                },
+                q7: {
+                    question: "Which of these is not a programming language?",
+                    options: {
+                        java: "Java",
+                        python: "Python",
+                        photoshop: "Photoshop",
+                        ruby: "Ruby"
+                    }
+                },
+                q8: {
+                    question: "What is the capital of Japan?",
+                    options: {
+                        seoul: "Seoul",
+                        beijing: "Beijing",
+                        tokyo: "Tokyo",
+                        bangkok: "Bangkok"
+                    }
+                },
+                q9: {
+                    question: "Who painted the Mona Lisa?",
+                    options: {
+                        vincent_van_gogh: "Vincent Van Gogh",
+                        leonardo_da_vinci: "Leonardo da Vinci",
+                        pablo_picasso: "Pablo Picasso",
+                        michelangelo: "Michelangelo"
+                    }
+                },
+                q10: {
+                    question: "Which of these is not a type of cloud?",
+                    options: {
+                        cumulus: "Cumulus",
+                        stratus: "Stratus",
+                        cirrus: "Cirrus",
+                        nebulus: "Nebulus"
+                    }
+                }
+            };
+            
+            // Create answer review list
+            for (let i = 1; i <= 10; i++) {
+                const qKey = `q${i}`;
+                const userAnswer = userAnswers[qKey];
+                const correctAnswer = correctAnswers[qKey];
+                const isCorrect = userAnswer === correctAnswer;
+                
+                const qDiv = document.createElement('div');
+                qDiv.style.padding = '15px';
+                qDiv.style.marginBottom = '15px';
+                qDiv.style.borderRadius = '5px';
+                qDiv.style.backgroundColor = isCorrect ? '#e8f5e9' : '#ffebee';
+                qDiv.style.border = `1px solid ${isCorrect ? '#c8e6c9' : '#ffcdd2'}`;
+                
+                const qData = questionLabels[qKey];
+                
+                qDiv.innerHTML = `
+                    <p><strong>${i}. ${qData.question}</strong></p>
+                    <p>Your answer: <strong>${qData.options[userAnswer]}</strong></p>
+                    <p>Correct answer: <strong>${qData.options[correctAnswer]}</strong></p>
+                `;
+                
+                answersList.appendChild(qDiv);
+            }
+            
+            // Scroll to the answers
+            answersContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
