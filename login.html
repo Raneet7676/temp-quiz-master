@@ -18,8 +18,23 @@
         .btn:hover{
             background:linear-gradient(black,red,orange);  
         }
+        body{
+            display: flex;
+            justify-content: center;
+            margin-top: 130px;
+            background:linear-gradient(rgb(139, 250, 139),rgb(99, 99, 61),rgb(110, 236, 110));
+        }
+        form{
+            height: 450px;
+            width: 980px;
+            text-align: center;
+            
+        }
         main{
            background-color: cadetblue;
+           border:black solid 10px;
+           border-radius: 30px;
+           text-align: center;
         }
     </style>
 </head>
@@ -28,16 +43,14 @@
         <h2>Quiz Application</h2>
         <h4>This is the test where you unlock your potential</h4>
         <form action="">
-            <input type="text" placeholder="Enter First name"><br>
-            <br>
-            <input type="text" placeholder="Enter Last name">
-            <br>                 
+            <input type="text" placeholder="Enter First name">                                  <input type="text" placeholder="Enter Last name">
+            <br>     
+            <br>            
             <input type="mail" placeholder="Enter Email">
             
            <div class="btn" onclick="window.location.href='index.html'">
-            <h5>START QUIZ</h5>
-
-           </div>
+                <h5>START QUIZ</h5>
+            </div>
         </form>
 
        

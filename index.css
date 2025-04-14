@@ -1,5 +1,11 @@
-body{
-    background-color: rgb(244, 143, 248);
+/*body{
+    background: linear-gradient(rgb(133, 204, 1),green,rgb(12, 12, 11));
+}*/
+#namespace{
+    top: 0px;
+    margin-top: 0%;
+    height: 250px;
+    background: linear-gradient(grey,green,rgb(170, 227, 135));
 }
 
 #cards-for-box{
@@ -10,7 +16,9 @@ body{
 
     height: 980px;
     width: auto;
-    border: black ridge 5px;
+    border: black ridge 3px;
+    border-radius: 2%;
+
 }
 
 .box-contain{
@@ -20,4 +28,24 @@ body{
     border-radius: 5%;
     margin: 4px;
     text-align: center;
+    
+}
+.increase-size{
+    font-size: 60px;
+    text-align: center;
+}
+.increase-size + h5{
+    font-size: 35px;
+}
+
+
+.box-contain :hover{
+    border:rgb(137, 214, 137) dotted 3px;
+    border-radius: 3%;
+    
+}
+
+h4 + p{
+    text-transform: uppercase;
+    margin-top: 50%;
 }
