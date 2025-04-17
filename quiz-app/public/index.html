@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz Topics</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <main>
+    <section id="namespace">
+      <h1 class="increase-size">Choose Your Problem</h1>
+      <h5 class="increase-size">Test your Capability</h5>
+    </section>
+
+    <section id="cards-for-box">
+      <div class="box-contain" id="web-techno">
+        <h4>WEB TECHNOLOGY</h4>
+        <p>"The Ultimate Code Challenge for Web Wizards."</p>
+      </div>
+
+      <div class="box-contain" id="programming">
+        <h4>PROGRAMMING LANGUAGE</h4>
+        <p>"One Quiz to Rule Them All (Languages, That Is)."</p>
+      </div>
+
+      <div class="box-contain" id="networks">
+        <h4>COMPUTER NETWORKS</h4>
+        <p>"Your Brain vs. the Protocols—Lets Go!"</p>
+      </div>
+
+      <div class="box-contain" id="os">
+        <h4>OPERATING SYSTEM</h4>
+        <p>"From Kernel Panic to Quiz Zen."</p>
+      </div>
+
+      <div class="box-contain" id="reasoning">
+        <h4>LOGICAL REASONING</h4>
+        <p>"Twist Your Brain... Just Right."</p>
+      </div>
+
+      <div class="box-contain" id="aptitude">
+        <h4>APTITUDE</h4>
+        <p>"The Smarter You Solve, The Higher You Score!"</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ✅ JavaScript goes at the END of the body -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const redirects = {
+        "web-techno": "quiz/webtechno.html",
+        "programming": "quiz/language.html",
+        "networks": "quiz/network.html",
+        "os": "quiz/os.html",
+        "reasoning": "quiz/reasoning.html",
+        "aptitude": "quiz/aptitude.html"
+      };
+
+      Object.keys(redirects).forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.style.cursor = 'pointer';
+          element.addEventListener('click', () => {
+            window.location.href = redirects[id];
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
